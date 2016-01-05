@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--PLAY BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/playButton"
+        android:background="@drawable/play"
+        android:layout_marginBottom="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/pauseButton"
+        android:layout_marginEnd="24dp"
+        android:onClick="startService"
+        />
+
+
+    <!--PAUSE BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/pauseButton"
+        android:background="@drawable/pause"
+        android:layout_alignTop="@+id/playButton"
+        android:layout_toStartOf="@+id/fastForward"
+        android:layout_marginEnd="23dp"
+        android:onClick="stopService"
+        />
+
+
+    <!--FAST FORWARD BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/fastForward"
+        android:background="@drawable/fast_forward"
+        android:layout_marginEnd="24dp"
+        android:layout_alignTop="@+id/skipForward"
+        android:layout_toStartOf="@+id/skipForward" />
+
+    <!--REWIND BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/rewind"
+        android:background="@drawable/rewind"
+        android:layout_alignTop="@+id/playButton"
+        android:layout_toStartOf="@+id/playButton"
+        android:layout_marginEnd="23dp" />
+
+    <!--SKIP BACKWARDS BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/skipBack"
+        android:background="@drawable/skip_left"
+        android:layout_marginStart="22dp"
+        android:layout_alignTop="@+id/rewind"
+        android:layout_alignParentStart="true" />
+
+    <!--SKIP FORWARDS BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/skipForward"
+        android:background="@drawable/skip_right"
+        android:layout_marginEnd="33dp"
+        android:layout_alignTop="@+id/pauseButton"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Album"
+        android:id="@+id/albumName"
+        android:layout_above="@+id/playButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Song"
+        android:id="@+id/songName"
+        android:layout_alignTop="@+id/albumName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" />
+
+
+</RelativeLayout>
