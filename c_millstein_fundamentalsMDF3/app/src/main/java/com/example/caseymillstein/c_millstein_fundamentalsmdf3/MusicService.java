@@ -2,6 +2,7 @@ package com.example.caseymillstein.c_millstein_fundamentalsmdf3;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -43,13 +44,18 @@ public class MusicService extends Service {
 //        Toast.makeText(this, "Service Started..", Toast.LENGTH_LONG).show();
 //        return START_STICKY;
 
-        NotificationManager mgr = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.note);
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.note));
-        builder.setContentTitle("Under Pressure");
-        builder.setContentText("Song Name");
-        mgr.notify(STANDARD_NOTIFICATION, builder.build());
+//        NotificationManager mgr = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+//        builder.setSmallIcon(R.drawable.note);
+//        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.note));
+//        builder.setContentTitle("Under Pressure");
+//        builder.setContentText("Song Name");
+//        mgr.notify(STANDARD_NOTIFICATION, builder.build());
+//
+//        Intent main = new Intent(this, MainActivity.class);
+//        PendingIntent pIntent = PendingIntent.getActivity(this, 0, main, PendingIntent.FLAG_UPDATE_CURRENT);
+//        builder.setContentIntent(pIntent);
+
 
 
         return super.onStartCommand(intent, flags, startId);
@@ -60,6 +66,7 @@ public class MusicService extends Service {
     public void onDestroy(){
 
         //Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
+
 
 
         //super.onDestroy();
