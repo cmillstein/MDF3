@@ -13,7 +13,9 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -32,6 +34,8 @@ public class MusicService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
+
+        mp = MediaPlayer.create(this, R.raw.buried_alive);
 
 
 
@@ -56,16 +60,51 @@ public class MusicService extends Service {
 //        PendingIntent pIntent = PendingIntent.getActivity(this, 0, main, PendingIntent.FLAG_UPDATE_CURRENT);
 //        builder.setContentIntent(pIntent);
 
+        if(mp==null) {
+
+            mp.start();
+
+        }else if(!mp.isPlaying()){
+            mp.seekTo(whenPause);
+            mp.start();
+        }
 
 
-        return super.onStartCommand(intent, flags, startId);
+        return 1;
+
+
+        //return super.onStartCommand(intent, flags, startId);
     }
+
+    public void onStart(Intent intent, int startId){
+
+
+    }
+
+
+    public void onPause(){
+
+
+
+
+    }
+
+    public void onStop(){
+
+
+
+    }
+
 
 
     @Override
     public void onDestroy(){
 
         //Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
+
+
+        mp.stop();
+        mp.release();
 
 
 

@@ -21,7 +21,7 @@ public class MainFrag extends Fragment {
     Button playButton;
     Button pauseButton;
     Button rewind;
-    Button fastForward;
+    //Button fastForward;
     Button skipBackward;
     Button skipForward;
     TextView album;
@@ -35,7 +35,7 @@ public class MainFrag extends Fragment {
         playButton = (Button) view.findViewById(R.id.playButton);
         pauseButton = (Button) view.findViewById(R.id.pauseButton);
         rewind = (Button) view.findViewById(R.id.skip_backward);
-        fastForward = (Button) view.findViewById(R.id.skip_forward);
+        skipBackward = (Button) view.findViewById(R.id.skip_forward);
         skipForward = (Button) view.findViewById(R.id.stop);
         album = (TextView) view.findViewById(R.id.albumName);
         song = (TextView) view.findViewById(R.id.songName);

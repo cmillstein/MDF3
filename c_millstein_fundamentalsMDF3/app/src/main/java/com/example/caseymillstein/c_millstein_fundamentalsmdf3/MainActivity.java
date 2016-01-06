@@ -48,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
 
 
-        if(mp==null) {
-
-            mp = MediaPlayer.create(this, R.raw.im_gone);
-            mp.start();
-        }else if(!mp.isPlaying()){
-            mp.seekTo(whenPause);
-            mp.start();
-        }
+//        if(mp==null) {
+//
+//            mp = MediaPlayer.create(this, R.raw.im_gone);
+//            mp.start();
+//        }else if(!mp.isPlaying()){
+//            mp.seekTo(whenPause);
+//            mp.start();
+//        }
 
 
     }
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MusicService.class);
         stopService(intent);
 
-        mp.pause();
-        whenPause = mp.getCurrentPosition();
+//        mp.pause();
+//        whenPause = mp.getCurrentPosition();
 
 
     }
@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void stopService(View view) {
 
-        mp.release();
-        mp = null;
+//        mp.release();
+//        mp = null;
 
 
     }
