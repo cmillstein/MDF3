@@ -1,6 +1,8 @@
 package com.example.caseymillstein.c_millstein_fundamentalsmdf3;
 
 import android.app.Fragment;
+import android.media.MediaExtractor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 public class MainFrag extends Fragment {
 
 
+    MediaPlayer mp;
 
     Button playButton;
     Button pauseButton;
@@ -33,10 +36,11 @@ public class MainFrag extends Fragment {
         pauseButton = (Button) view.findViewById(R.id.pauseButton);
         rewind = (Button) view.findViewById(R.id.rewind);
         fastForward = (Button) view.findViewById(R.id.fastForward);
-        skipBackward = (Button) view.findViewById(R.id.skipBack);
-        skipForward = (Button) view.findViewById(R.id.skipForward);
+        skipForward = (Button) view.findViewById(R.id.stop);
         album = (TextView) view.findViewById(R.id.albumName);
         song = (TextView) view.findViewById(R.id.songName);
+
+
 
 
         return view;
