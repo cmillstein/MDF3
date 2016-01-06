@@ -9,10 +9,11 @@
         android:layout_height="30dp"
         android:id="@+id/playButton"
         android:background="@drawable/play"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="60dp"
         android:onClick="startService"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/songName" />
+        android:layout_toStartOf="@+id/songName"
+        android:layout_marginEnd="37dp" />
 
 
     <!--PAUSE BUTTON-->
@@ -23,39 +24,38 @@
         android:background="@drawable/pause"
         android:onClick="pauseService"
         android:layout_alignTop="@+id/playButton"
-        android:layout_alignEnd="@+id/songName" />
+        android:layout_centerHorizontal="true" />
 
 
     <!--FAST FORWARD BUTTON-->
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/fastForward"
-        android:background="@drawable/fast_forward"
+        android:id="@+id/skip_forward"
+        android:background="@drawable/skip_right"
         android:layout_alignTop="@+id/pauseButton"
-        android:layout_toEndOf="@+id/songName"
-        android:layout_marginStart="37dp" />
+        android:layout_toStartOf="@+id/stop"
+        android:layout_marginEnd="38dp" />
 
     <!--REWIND BUTTON-->
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/rewind"
-        android:background="@drawable/rewind"
+        android:id="@+id/skip_backward"
+        android:background="@drawable/skip_left"
         android:layout_alignTop="@+id/playButton"
-        android:layout_alignStart="@+id/albumName"
-        android:layout_marginStart="40dp" />
+        android:layout_alignStart="@+id/albumName" />
 
 
-    <!--SKIP FORWARDS BUTTON-->
+    <!--STOP BUTTON-->
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/stop"
         android:background="@drawable/stop"
-        android:layout_alignTop="@+id/fastForward"
-        android:layout_alignEnd="@+id/albumName"
-        android:onClick="stopService"/>
+        android:onClick="stopService"
+        android:layout_alignTop="@+id/skip_forward"
+        android:layout_alignEnd="@+id/albumName" />
 
     <TextView
         android:layout_width="wrap_content"
