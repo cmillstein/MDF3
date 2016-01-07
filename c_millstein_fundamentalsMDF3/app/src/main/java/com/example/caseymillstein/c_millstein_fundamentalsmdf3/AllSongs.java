@@ -1,30 +1,28 @@
 package com.example.caseymillstein.c_millstein_fundamentalsmdf3;
 
+import android.net.Uri;
+
 /**
  * Created by caseymillstein on 1/5/16.
  */
 public class AllSongs {
 
-    private String title;
-    private int songResource;
+    private String mTitle;
+    private Uri mUri;
 
-    public AllSongs(String title, int songResource){
-        this.title = title;
-        this.songResource = songResource;
+
+    public AllSongs(String title, Uri uri){
+        mTitle = title;
+        mUri = uri;
 
     }
 
-    public String getTitle(){
-        return title;
+    public String getmTitle(){
+        return mTitle;
     }
 
-    public int getSongResource(){
-        return songResource;
+    public Uri getmUri(){
+        return mUri;
     }
-
-    public String getUriString(String packageName){
-        return "android.resource://" + packageName + "/" + songResource;
-    }
-
 
 }

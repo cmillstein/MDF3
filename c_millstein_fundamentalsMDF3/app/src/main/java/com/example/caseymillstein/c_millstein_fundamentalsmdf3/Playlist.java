@@ -12,15 +12,6 @@ public class Playlist {
 
 
 
-    public Playlist(){
-
-        songs.add(new AllSongs("Bounce", R.raw.bounce));
-        songs.add(new AllSongs("Buried Alive", R.raw.buried_alive));
-        songs.add(new AllSongs("I'm Gone", R.raw.im_gone));
-
-        current = 0;
-
-    }
 
 
 

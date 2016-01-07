@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
 
@@ -64,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
     //Stopping service
     public void pauseService(View view){
 
-        Intent intent = new Intent(this, MusicService.class);
-        stopService(intent);
 
 //        mp.pause();
 //        whenPause = mp.getCurrentPosition();
@@ -75,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void stopService(View view) {
+
+        Intent intent = new Intent(this, MusicService.class);
+        stopService(intent);
+
 
 //        mp.release();
 //        mp = null;
