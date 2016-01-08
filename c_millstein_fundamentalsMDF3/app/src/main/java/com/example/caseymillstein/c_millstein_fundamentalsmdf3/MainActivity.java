@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.BitmapFactory;
@@ -19,7 +20,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
     MediaPlayer mp;
@@ -35,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-
     }
+
+
+
 
 
 
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public void pauseService(View view){
 
 
+
 //        mp.pause();
 //        whenPause = mp.getCurrentPosition();
 
@@ -75,12 +78,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void stopService(View view) {
 
-        Intent intent = new Intent(this, MusicService.class);
-        stopService(intent);
+
+
+            Intent intent = new Intent(this, MusicService.class);
+            stopService(intent);
 
 
 //        mp.release();
 //        mp = null;
+
+
 
 
     }

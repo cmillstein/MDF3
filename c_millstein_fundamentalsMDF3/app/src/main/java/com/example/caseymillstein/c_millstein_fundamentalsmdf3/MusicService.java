@@ -30,9 +30,11 @@ public class MusicService extends Service {
     int whenPause;
 
 
+
     public static final int STANDARD_NOTIFICATION = 0x01001;
     public static final int EXPANDED_NOTIFCATION = 0x1002;
     private static final int FOREGROUND_NOTIFICATION = 0x01001;
+
 
 
     //ARRAY LIST
@@ -51,15 +53,30 @@ public class MusicService extends Service {
 
     //BINDING SERVICE
 
+    public class BoundServiceBinder extends Binder{
+        public MusicService getService(){
+            return MusicService.this;
+        }
+    }
+
+
+    BoundServiceBinder mBinder;
+
+
+
+
     @Override
     public IBinder onBind(Intent intent) {
 
-        return null;
+        return mBinder;
     }
 
-    public class ServiceBinder extends Binder {
+    @Override
+    public boolean onUnbind(Intent intent){
 
+        return super.onUnbind(intent);
     }
+
 
 
 
@@ -67,6 +84,8 @@ public class MusicService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
+
+        mBinder = new BoundServiceBinder();
 
         mp = MediaPlayer.create(this, R.raw.buried_alive);
 
@@ -81,6 +100,7 @@ public class MusicService extends Service {
 
 //        Toast.makeText(this, "Service Started..", Toast.LENGTH_LONG).show();
 //        return START_STICKY;
+
 
         NotificationManager mgr = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -97,7 +117,14 @@ public class MusicService extends Service {
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, main, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pIntent);
 
-        mp.start();
+                if(mp==null) {
+
+            mp.start();
+
+        }else if(!mp.isPlaying()){
+            mp.seekTo(whenPause);
+            mp.start();
+        }
 
 
         return Service.START_NOT_STICKY;
@@ -125,8 +152,6 @@ public class MusicService extends Service {
 
     public void onPause(){
 
-        mp.pause();
-        whenPause = mp.getCurrentPosition();
 
 
     }
