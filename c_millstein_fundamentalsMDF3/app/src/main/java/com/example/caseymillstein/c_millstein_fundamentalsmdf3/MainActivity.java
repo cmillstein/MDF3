@@ -20,11 +20,15 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity  implements ServiceConnection{
 
 
     MediaPlayer mp;
     int whenPause;
+
+    MusicService mService;
+    boolean mBound;
+
 
     public static final int STANDARD_NOTIFICATION = 0x01001;
 
@@ -41,54 +45,68 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service){
+        MusicService.BoundServiceBinder binder = (MusicService.BoundServiceBinder)service;
+        mService = binder.getService();
+        mBound = true;
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+        mService = null;
+        mBound = false;
+    }
 
 
 
-    //Starting service
-    public void startService(View view){
 
-        Intent intent = new Intent(this, MusicService.class);
-        startService(intent);
-
-
-//        if(mp==null) {
+//    //Starting service
+//    public void startService(View view){
 //
-//            mp = MediaPlayer.create(this, R.raw.im_gone);
-//            mp.start();
-//        }else if(!mp.isPlaying()){
-//            mp.seekTo(whenPause);
-//            mp.start();
-//        }
-
-
-    }
-
-
-    //Stopping service
-    public void pauseService(View view){
-
-
-
-//        mp.pause();
-//        whenPause = mp.getCurrentPosition();
-
-
-    }
-
-
-    public void stopService(View view) {
-
-
-
-            Intent intent = new Intent(this, MusicService.class);
-            stopService(intent);
-
-
-//        mp.release();
-//        mp = null;
-
-
-
-
-    }
+//        Intent intent = new Intent(this, MusicService.class);
+//        startService(intent);
+//
+//
+////        if(mp==null) {
+////
+////            mp = MediaPlayer.create(this, R.raw.im_gone);
+////            mp.start();
+////        }else if(!mp.isPlaying()){
+////            mp.seekTo(whenPause);
+////            mp.start();
+////        }
+//
+//
+//    }
+//
+//
+//    //Stopping service
+//    public void pauseService(View view){
+//
+//
+//
+//
+////        mp.pause();
+////        whenPause = mp.getCurrentPosition();
+//
+//
+//    }
+//
+//
+//    public void stopService(View view) {
+//
+//
+//
+//            Intent intent = new Intent(this, MusicService.class);
+//            stopService(intent);
+//
+//
+////        mp.release();
+////        mp = null;
+//
+//
+//
+//
+//    }
 }

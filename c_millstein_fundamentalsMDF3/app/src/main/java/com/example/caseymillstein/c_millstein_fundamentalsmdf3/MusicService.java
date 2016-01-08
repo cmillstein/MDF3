@@ -111,17 +111,19 @@ public class MusicService extends Service {
         builder.setAutoCancel(false);
         builder.setOngoing(true);
 
-        startForeground(FOREGROUND_NOTIFICATION, builder.build());
-
         Intent main = new Intent(this, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, main, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pIntent);
+
+        startForeground(FOREGROUND_NOTIFICATION, builder.build());
+
+
 
                 if(mp==null) {
 
             mp.start();
 
-        }else if(!mp.isPlaying()){
+        }else if(!mp.isPlaying());{
             mp.seekTo(whenPause);
             mp.start();
         }

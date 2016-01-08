@@ -22,7 +22,7 @@ import com.example.caseymillstein.c_millstein_fundamentalsmdf3.MusicService.Boun
 /**
  * Created by caseymillstein on 1/4/16.
  */
-public class MainFrag extends Fragment implements ServiceConnection{
+public class MainFrag extends Fragment{
 
 
     MediaPlayer mp;
@@ -37,8 +37,6 @@ public class MainFrag extends Fragment implements ServiceConnection{
     TextView song;
 
 
-    MusicService mService;
-    boolean mBound;
 
     @Override
     public View onCreateView(LayoutInflater _inflater, ViewGroup _conatiner, Bundle _savedInstanceState){
@@ -57,29 +55,12 @@ public class MainFrag extends Fragment implements ServiceConnection{
 
 
 
-
         return view;
     }
 
 
 
 
-
-
-
-
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service){
-        MusicService.BoundServiceBinder binder = (MusicService.BoundServiceBinder)service;
-        mService = binder.getService();
-        mBound = true;
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
-        mService = null;
-        mBound = false;
-    }
 
 
 
