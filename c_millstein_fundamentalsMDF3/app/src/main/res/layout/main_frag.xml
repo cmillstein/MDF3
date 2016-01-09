@@ -9,11 +9,10 @@
         android:layout_height="30dp"
         android:id="@+id/playButton"
         android:background="@drawable/play"
-        android:layout_marginBottom="60dp"
-        android:onClick="startService"
+        android:layout_marginBottom="59dp"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/songName"
-        android:layout_marginEnd="37dp" />
+        android:layout_toEndOf="@+id/skip_backward"
+        android:layout_marginStart="39dp" />
 
 
     <!--PAUSE BUTTON-->
@@ -22,7 +21,6 @@
         android:layout_height="30dp"
         android:id="@+id/pauseButton"
         android:background="@drawable/pause"
-        android:onClick="pauseService"
         android:layout_alignTop="@+id/playButton"
         android:layout_centerHorizontal="true" />
 
@@ -53,7 +51,6 @@
         android:layout_height="30dp"
         android:id="@+id/stop"
         android:background="@drawable/stop"
-        android:onClick="stopService"
         android:layout_alignTop="@+id/skip_forward"
         android:layout_alignEnd="@+id/albumName" />
 
@@ -71,7 +68,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Song"
         android:id="@+id/songName"
         android:layout_alignTop="@+id/albumName"
         android:layout_centerHorizontal="true"

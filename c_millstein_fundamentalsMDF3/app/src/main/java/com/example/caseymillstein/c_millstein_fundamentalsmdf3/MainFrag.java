@@ -34,8 +34,25 @@ public class MainFrag extends Fragment{
     Button skipBackward;
     Button skipForward;
     TextView album;
-    TextView song;
+    static TextView songTitle;
+    private onButtonClickListener listener;
 
+
+
+    public interface onButtonClickListener{
+        void play();
+        void pause();
+        void stop();
+        void backSong();
+        void nextSong();
+    }
+
+
+    public static final String TAG = "MainFrag.TAG";
+
+    public static MainFrag newInstance(){
+        return new MainFrag();
+    }
 
 
     @Override
@@ -51,18 +68,83 @@ public class MainFrag extends Fragment{
         skipForward = (Button) view.findViewById(R.id.skip_forward);
         stop = (Button) view.findViewById(R.id.stop);
         album = (TextView) view.findViewById(R.id.albumName);
-        song = (TextView) view.findViewById(R.id.songName);
+        songTitle = (TextView) view.findViewById(R.id.songName);
+
+
+
+        listener = (onButtonClickListener) getActivity();
+        playButton.setOnClickListener(new View.OnClickListener(){
+
+
+            @Override
+                public void onClick(View v){
+                listener.play();
+            }
+
+
+        });
+
+        pauseButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                listener.pause();
+            }
+
+
+
+        });
+
+        stop.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                listener.stop();
+            }
+
+
+
+        });
+
+        skipBackward.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                listener.backSong();
+            }
+
+
+
+        });
+
+        skipForward.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                listener.nextSong();
+            }
+
+
+
+        });
+
+
+
+
+
+
+
+
+
 
 
 
         return view;
     }
 
-
-
-
-
-
+    public static void songName(String string){
+        songTitle.setText(string);
+    }
 
 
 }

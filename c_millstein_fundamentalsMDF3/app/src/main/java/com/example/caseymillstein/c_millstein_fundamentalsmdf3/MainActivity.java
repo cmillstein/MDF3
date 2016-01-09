@@ -1,5 +1,7 @@
 package com.example.caseymillstein.c_millstein_fundamentalsmdf3;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -20,14 +22,15 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity  implements ServiceConnection{
+public class MainActivity extends AppCompatActivity  implements MainFrag.onButtonClickListener, ServiceConnection{
 
 
-    MediaPlayer mp;
-    int whenPause;
 
-    MusicService mService;
-    boolean mBound;
+
+    MusicService myService;
+    boolean bound = false;
+    MusicService.BoundServiceBinder mBinder;
+
 
 
     public static final int STANDARD_NOTIFICATION = 0x01001;
@@ -39,6 +42,29 @@ public class MainActivity extends AppCompatActivity  implements ServiceConnectio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState == null){
+
+            FragmentManager fragManager = getFragmentManager();
+            FragmentTransaction trs = fragManager.beginTransaction();
+            MainFrag frgment = MainFrag.newInstance();
+            trs.replace(R.id.fragment_container_one, frgment, MainFrag.TAG);
+            trs.commit();
+
+        }
+
+
+
+
+
+    }
+
+    @Override
+    protected void onStart(){
+         super.onStart();
+        Intent intent = new Intent(this, MusicService.class);
+        startService(intent);
+        bindService(intent, this, Context.BIND_AUTO_CREATE);
+        bound = true;
 
     }
 
@@ -47,66 +73,102 @@ public class MainActivity extends AppCompatActivity  implements ServiceConnectio
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service){
-        MusicService.BoundServiceBinder binder = (MusicService.BoundServiceBinder)service;
-        mService = binder.getService();
-        mBound = true;
+        mBinder = (MusicService.BoundServiceBinder) service;
+        myService = mBinder.getService();
+        bound = true;
+        System.out.println("Bound");
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        mService = null;
-        mBound = false;
+        bound = false;
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(bound){
+
+            unbindService(this);
+
+        }
+
+        bound = false;
+
+    }
+
+
+    @Override
+    public void play() {
+
+        if(bound) {
+
+            myService.onPlayClicked();
+
+        }
+
+    }
+
+    @Override
+    public void pause() {
+
+        if(bound) {
+
+            myService.onPauseClicked();
+
+        }
+
+    }
+
+    @Override
+    public void stop() {
+
+        if(bound) {
+
+            myService.onStopClicked();
+
+        }
+
     }
 
 
 
 
-//    //Starting service
-//    public void startService(View view){
-//
-//        Intent intent = new Intent(this, MusicService.class);
-//        startService(intent);
-//
-//
-////        if(mp==null) {
-////
-////            mp = MediaPlayer.create(this, R.raw.im_gone);
-////            mp.start();
-////        }else if(!mp.isPlaying()){
-////            mp.seekTo(whenPause);
-////            mp.start();
-////        }
-//
-//
-//    }
-//
-//
-//    //Stopping service
-//    public void pauseService(View view){
-//
-//
-//
-//
-////        mp.pause();
-////        whenPause = mp.getCurrentPosition();
-//
-//
-//    }
-//
-//
-//    public void stopService(View view) {
-//
-//
-//
-//            Intent intent = new Intent(this, MusicService.class);
-//            stopService(intent);
-//
-//
-////        mp.release();
-////        mp = null;
-//
-//
-//
-//
-//    }
+    @Override
+    public void backSong() {
+
+        if(bound) {
+
+            myService.onPreviousClicked();
+
+        }
+
+    }
+
+
+
+    @Override
+    public void nextSong() {
+
+        if(bound) {
+
+            myService.onNextClicked();
+
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Intent intent = new Intent(this, MusicService.class);
+        stopService(intent);
+
+    }
+
+
+
 }

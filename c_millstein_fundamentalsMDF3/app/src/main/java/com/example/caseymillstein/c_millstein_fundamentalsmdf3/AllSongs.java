@@ -7,22 +7,28 @@ import android.net.Uri;
  */
 public class AllSongs {
 
+    private String mSong;
     private String mTitle;
-    private Uri mUri;
 
 
-    public AllSongs(String title, Uri uri){
-        mTitle = title;
-        mUri = uri;
+
+
+    public AllSongs(String _song, String _title){
+        mSong = _song;
+        mTitle = _title;
+
 
     }
+
+    public String getmSong(){
+        return mSong;
+    }
+
 
     public String getmTitle(){
         return mTitle;
     }
 
-    public Uri getmUri(){
-        return mUri;
-    }
+
 
 }

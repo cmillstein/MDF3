@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -26,8 +28,11 @@ import java.util.ArrayList;
  */
 public class MusicService extends Service {
 
+    int i = 0;
     MediaPlayer mp;
     int whenPause;
+
+    ArrayList<AllSongs> playSongs = new ArrayList<>();
 
 
 
@@ -37,30 +42,19 @@ public class MusicService extends Service {
 
 
 
-    //ARRAY LIST
-    public ArrayList<AllSongs> songs(){
-        ArrayList<AllSongs> songArray = new ArrayList<>();
-
-        songArray.add(new AllSongs("Bounce", Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.bounce)));
-        songArray.add(new AllSongs("Buried Alive", Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.buried_alive)));
-        songArray.add(new AllSongs("I'm Gone", Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.im_gone)));
-
-
-
-
-        return songArray;
-    }
 
     //BINDING SERVICE
+    private final IBinder mBinder = new BoundServiceBinder();
+    Boolean paused = false;
+
 
     public class BoundServiceBinder extends Binder{
-        public MusicService getService(){
+        MusicService getService(){
             return MusicService.this;
         }
     }
 
 
-    BoundServiceBinder mBinder;
 
 
 
@@ -71,43 +65,17 @@ public class MusicService extends Service {
         return mBinder;
     }
 
-    @Override
-    public boolean onUnbind(Intent intent){
+    NotificationManager manager;
 
-        return super.onUnbind(intent);
-    }
+    private void myNotification(){
 
 
-
-
-
-    @Override
-    public void onCreate(){
-        super.onCreate();
-
-        mBinder = new BoundServiceBinder();
-
-        mp = MediaPlayer.create(this, R.raw.buried_alive);
-
-
-
-
-    }
-
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId){
-
-//        Toast.makeText(this, "Service Started..", Toast.LENGTH_LONG).show();
-//        return START_STICKY;
-
-
-        NotificationManager mgr = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.note);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.note));
         builder.setContentTitle("Under Pressure");
-        builder.setContentText("Song Name");
+        builder.setContentText(playSongs.get(i).getmSong());
         builder.setAutoCancel(false);
         builder.setOngoing(true);
 
@@ -118,61 +86,191 @@ public class MusicService extends Service {
         startForeground(FOREGROUND_NOTIFICATION, builder.build());
 
 
+    }
 
-                if(mp==null) {
 
-            mp.start();
+    private void dissappearNoti(){
+        manager.cancel(EXPANDED_NOTIFCATION);
+    }
 
-        }else if(!mp.isPlaying());{
-            mp.seekTo(whenPause);
-            mp.start();
+
+
+
+    @Override
+    public void onCreate(){
+        super.onCreate();
+
+
+
+        AllSongs bounce = new AllSongs("Bounce", "android.resource://" + getPackageName() + "/raw/bounce");
+        AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive");
+        AllSongs imGone = new AllSongs("I'm Gone", "android.resource://" + getPackageName() + "/raw/im_gone");
+
+        playSongs.add(bounce);
+        playSongs.add(buriedAlive);
+        playSongs.add(imGone);
+
+
+    }
+
+
+
+
+
+
+
+    public void onPlayClicked() {
+
+            if (mp != null && mp.isPlaying()) {
+
+                return;
+
+            }
+
+            if (mp != null && paused) {
+
+                paused = false;
+                mp.start();
+                mp.seekTo(whenPause);
+                return;
+
+            }
+
+            mp = new MediaPlayer();
+            mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+            try {
+
+                mp.setDataSource(this, Uri.parse(String.valueOf(playSongs.get(i).getmTitle())));
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+
+            mp.prepareAsync();
+
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                    myNotification();
+
+                }
+
+            });
+
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+
+                    mp.stop();
+                    mp.reset();
+                    if (i == playSongs.size() - 1) {
+
+                        i = 0;
+
+                    } else {
+
+                        i = i + 1;
+
+                    }
+                    try {
+
+                        mp.setDataSource(getBaseContext(), Uri.parse(String.valueOf(playSongs.get(i).getmTitle())));
+
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+
+                    try {
+
+                        mp.prepare();
+
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+
+                    }
+
+                    MainFrag.songName(playSongs.get(i).getmSong());
+
+                }
+
+            });
+
+            MainFrag.songName(playSongs.get(i).getmSong());
+
         }
 
 
-        return Service.START_NOT_STICKY;
 
+    public void onPauseClicked(){
+        if(mp == null || !mp.isPlaying()){
+            return;
+        }
 
-        //return super.onStartCommand(intent, flags, startId);
-    }
-
-
-
-    public void onStart(Intent intent, int startId){
-
-//        if(mp==null) {
-//
-//            mp.start();
-//
-//        }else if(!mp.isPlaying()){
-//            mp.seekTo(whenPause);
-//            mp.start();
-//        }
+        mp.pause();
+        paused = true;
+        whenPause = mp.getCurrentPosition();
 
 
     }
 
+    public void onStopClicked(){
 
-    public void onPause(){
+        if(mp.isPlaying() || paused) {
+            mp.stop();
+            dissappearNoti();
+            paused = false;
+        }else if  (mp == null || !mp.isPlaying()){
+            return;
+        }
+
+    }
+
+
+    public void onPreviousClicked(){
+        if(mp != null && mp.isPlaying()){
+            if(i==0){
+                i=playSongs.size()-1;
+            }else {
+                i=i-1;
+            }
+            mp.stop();
+            paused = false;
+            onPlayClicked();
+        }
+    }
+
+
+    public void onNextClicked(){
+
+        if(mp != null && mp.isPlaying()){
+            if(i==playSongs.size()-1){
+                i=0;
+            }else{
+                i ++;
+            }
+
+            mp.stop();
+            paused = false;
+            onPlayClicked();
+
+        }
 
 
 
     }
-
-    public void onStop(){
-
-
-
-    }
-
-
 
     @Override
     public void onDestroy(){
 
         //Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
 
+        dissappearNoti();
 
-        mp.stop();
         mp.release();
 
 
