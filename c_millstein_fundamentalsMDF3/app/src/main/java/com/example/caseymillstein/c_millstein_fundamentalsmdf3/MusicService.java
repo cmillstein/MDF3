@@ -68,6 +68,9 @@ public class MusicService extends Service {
     NotificationManager manager;
     NotificationCompat.Builder build;
 
+
+
+    //SETTING UP NOTIFICATION AND PENDING INTENT
     private void myNotification(){
 
 
@@ -91,7 +94,7 @@ public class MusicService extends Service {
 
     }
 
-
+    //MAKING THE NOTIFACTION DISSAPPEAR WHEN USER CLICKS STOP BUTTON
     private void dissappearNoti(){
         manager.cancel(EXPANDED_NOTIFCATION);
     }
@@ -104,6 +107,7 @@ public class MusicService extends Service {
         super.onCreate();
 
 
+        //ARRAY OF SONGS AND ADDING THEM TO MY ARRAY LIST
 
         AllSongs bounce = new AllSongs("Bounce", "android.resource://" + getPackageName() + "/raw/bounce");
         AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive");
@@ -121,8 +125,11 @@ public class MusicService extends Service {
 
 
 
-
+    //NOTE: WHEN ONE SONG ENDS, IT GOES TO THE NEXT SONG AUTOMATICALLY.  ALL SONGS WILL LOOP (3 SONGS IN TOTAL)
     public void onPlayClicked() {
+
+        //IF MEDIAPLAYER ISN'T EQUAL TO NULL AND PLAYING--
+        //ALSO PREPARING ASYNC HERE
 
             if (mp != null && mp.isPlaying()) {
 
@@ -208,7 +215,7 @@ public class MusicService extends Service {
         }
 
 
-
+    //PAUSE BUTTON LOGIC
     public void onPauseClicked(){
         if(mp == null || !mp.isPlaying()){
             return;
@@ -221,6 +228,7 @@ public class MusicService extends Service {
 
     }
 
+    //STOP BUTTON LOGIC
     public void onStopClicked(){
 
         if(mp.isPlaying() || paused) {
@@ -234,6 +242,7 @@ public class MusicService extends Service {
     }
 
 
+    //PREVIOUS SONG LOGIC
     public void onPreviousClicked(){
         if(mp != null && mp.isPlaying()){
             if(i==0){
@@ -248,6 +257,7 @@ public class MusicService extends Service {
     }
 
 
+    //NEXT SONG LOGIC
     public void onNextClicked(){
 
         if(mp != null && mp.isPlaying()){
