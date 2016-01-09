@@ -38,7 +38,7 @@ public class MusicService extends Service {
 
     public static final int STANDARD_NOTIFICATION = 0x01001;
     public static final int EXPANDED_NOTIFCATION = 0x1002;
-    private static final int FOREGROUND_NOTIFICATION = 0x01001;
+    private static final int REQUEST_NOTIFY_LAUNCH = 0x02001;
 
 
 
@@ -66,24 +66,27 @@ public class MusicService extends Service {
     }
 
     NotificationManager manager;
+    NotificationCompat.Builder build;
 
     private void myNotification(){
 
 
         manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.note);
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.note));
-        builder.setContentTitle("Under Pressure");
-        builder.setContentText(playSongs.get(i).getmSong());
-        builder.setAutoCancel(false);
-        builder.setOngoing(true);
+        build = new NotificationCompat.Builder(getBaseContext());
+        Intent intent = new Intent(MusicService.this, MainActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(MusicService.this, REQUEST_NOTIFY_LAUNCH, intent, 0);
+        build.setAutoCancel(false);
+        build.setOngoing(true);
+        build.setContentIntent(pIntent);
+        build.setSmallIcon(R.drawable.note);
+        build.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.note));
+        build.setContentTitle("Under Pressure");
+        build.setContentText(playSongs.get(i).getmSong());
+        manager.notify(EXPANDED_NOTIFCATION, build.build());
 
-        Intent main = new Intent(this, MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, main, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pIntent);
 
-        startForeground(FOREGROUND_NOTIFICATION, builder.build());
+
+
 
 
     }
