@@ -1,5 +1,6 @@
 package com.example.caseymillstein.c_millstein_fundamentalsmdf3;
 
+import android.media.Image;
 import android.net.Uri;
 
 /**
@@ -13,12 +14,16 @@ public class AllSongs {
 
 
 
+
     public AllSongs(String _song, String _title){
         mSong = _song;
         mTitle = _title;
 
 
+
     }
+
+
 
     public String getmSong(){
         return mSong;
@@ -28,6 +33,7 @@ public class AllSongs {
     public String getmTitle(){
         return mTitle;
     }
+
 
 
 

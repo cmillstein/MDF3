@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.caseymillstein.c_millstein_fundamentalsmdf3.MusicService.BoundServiceBinder;
@@ -27,12 +28,14 @@ public class MainFrag extends Fragment{
 
     MediaPlayer mp;
 
+    ImageView albumArt;
     Button playButton;
     Button pauseButton;
     Button stop;
     //Button fastForward;
     Button skipBackward;
     Button skipForward;
+    Button loopButton;
     TextView album;
     static TextView songTitle;
     private onButtonClickListener listener;
@@ -45,6 +48,7 @@ public class MainFrag extends Fragment{
         void stop();
         void backSong();
         void nextSong();
+        void loop();
     }
 
 
@@ -68,6 +72,22 @@ public class MainFrag extends Fragment{
         skipForward = (Button) view.findViewById(R.id.skip_forward);
         stop = (Button) view.findViewById(R.id.stop);
         album = (TextView) view.findViewById(R.id.albumName);
+        albumArt = (ImageView) view.findViewById(R.id.imageView);
+
+
+        //LOOP BUTTON
+        loopButton = (Button) view.findViewById(R.id.loopButton);
+
+        loopButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                listener.loop();
+            }
+
+        });
+
+
+
         songTitle = (TextView) view.findViewById(R.id.songName);
 
 

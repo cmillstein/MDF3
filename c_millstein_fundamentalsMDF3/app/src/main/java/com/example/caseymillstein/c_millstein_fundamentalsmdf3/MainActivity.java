@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -37,20 +38,19 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null){
 
-            FragmentManager fragManager = getFragmentManager();
-            FragmentTransaction trs = fragManager.beginTransaction();
-            MainFrag frgment = MainFrag.newInstance();
-            trs.replace(R.id.fragment_container_one, frgment, MainFrag.TAG);
-            trs.commit();
 
-        }
+
+        //ORIENTATION
+        int currentOrientation = getResources().getConfiguration().orientation;
+
 
 
 
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
 
 
 
+
     @Override
     public void onServiceConnected(ComponentName name, IBinder service){
         mBinder = (MusicService.BoundServiceBinder) service;
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
     public void onServiceDisconnected(ComponentName name) {
         bound = false;
     }
+
 
 
     @Override
@@ -158,6 +160,16 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
 
         }
 
+    }
+
+
+    @Override
+    public void loop(){
+        if(bound){
+
+            myService.onLoopClicked();
+
+        }
     }
 
     @Override

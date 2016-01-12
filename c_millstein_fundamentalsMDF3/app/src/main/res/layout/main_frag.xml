@@ -31,9 +31,9 @@
         android:layout_height="30dp"
         android:id="@+id/skip_forward"
         android:background="@drawable/skip_right"
-        android:layout_alignTop="@+id/pauseButton"
-        android:layout_toStartOf="@+id/stop"
-        android:layout_marginEnd="38dp" />
+        android:layout_marginEnd="36dp"
+        android:layout_alignBottom="@+id/pauseButton"
+        android:layout_toStartOf="@+id/stop" />
 
     <!--REWIND BUTTON-->
     <Button
@@ -51,7 +51,7 @@
         android:layout_height="30dp"
         android:id="@+id/stop"
         android:background="@drawable/stop"
-        android:layout_alignTop="@+id/skip_forward"
+        android:layout_alignBottom="@+id/skip_forward"
         android:layout_alignEnd="@+id/albumName" />
 
     <TextView
@@ -77,9 +77,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:background="@drawable/logic"
+
         android:layout_above="@+id/songName"
         android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:layout_above="@+id/playButton"
+        android:layout_alignStart="@+id/playButton"
+        android:layout_alignEnd="@+id/skip_forward" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/loopButton"
+        android:background="@drawable/loop"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/skip_backward" />
 
 
 </RelativeLayout>
