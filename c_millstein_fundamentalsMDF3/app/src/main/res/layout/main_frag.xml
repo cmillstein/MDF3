@@ -93,15 +93,6 @@ android:background="@drawable/logc2"
         android:layout_alignStart="@+id/playButton"
         android:layout_alignEnd="@+id/skip_forward" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/loopButton"
-        android:background="@drawable/loop"
-        android:layout_alignParentBottom="true"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,6 +109,15 @@ android:background="@drawable/logc2"
         android:layout_alignEnd="@+id/stop"
         android:layout_alignTop="@+id/seekBar"
         android:layout_alignStart="@+id/stop" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loop"
+        android:id="@+id/loopBox"
+        android:checked="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/beginSong" />
 
 
 </RelativeLayout>

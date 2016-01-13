@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -39,7 +41,7 @@ public class MainFrag extends Fragment{
     //Button fastForward;
     Button skipBackward;
     Button skipForward;
-    Button loopButton;
+    CheckBox loopButton;
     static TextView album;
     TextView beginSong;
     TextView endSong;
@@ -65,7 +67,7 @@ public class MainFrag extends Fragment{
         void stop();
         void backSong();
         void nextSong();
-        void loop();
+        void loopSong(boolean looper);
     }
 
 
@@ -115,17 +117,19 @@ public class MainFrag extends Fragment{
 
 
         //LOOP BUTTON
-        loopButton = (Button) view.findViewById(R.id.loopButton);
+        loopButton = (CheckBox) view.findViewById(R.id.loopBox);
 
-        loopButton.setOnClickListener(new View.OnClickListener(){
+        loopButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v){
-
-                listener.loop();
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    listener.loopSong(true);
+                }else{
+                    listener.loopSong(false);
+                }
             }
-
         });
+
 
 
 

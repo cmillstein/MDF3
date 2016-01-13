@@ -49,7 +49,7 @@ public class MusicService extends Service{
     //BINDING SERVICE
     private final IBinder mBinder = new BoundServiceBinder();
     Boolean paused = false;
-    Boolean isLoopedPressed = false;
+    Boolean loop = false;
 
 
 
@@ -63,6 +63,9 @@ public class MusicService extends Service{
     }
 
 
+    public void isSongLooping(boolean looper){
+        loop = looper;
+    }
 
 
 
@@ -91,7 +94,7 @@ public class MusicService extends Service{
         build.setContentIntent(pIntent);
         build.setSmallIcon(R.drawable.note);
         build.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.note));
-        build.setContentTitle("Under Pressure");
+        build.setContentTitle(playSongs.get(i).getmAlbum());
         build.setContentText(playSongs.get(i).getmSong());
         manager.notify(EXPANDED_NOTIFCATION, build.build());
 
@@ -132,13 +135,9 @@ public class MusicService extends Service{
 
 
 
-    }
-
-    //LOOP
-    public void onLoopClicked(){
-        mp.setLooping(true);
 
     }
+
 
 
 
@@ -152,8 +151,7 @@ public class MusicService extends Service{
 
             if (mp != null && mp.isPlaying()) {
 
-
-
+                mp.release();
 
 
                 return;
@@ -174,6 +172,7 @@ public class MusicService extends Service{
 
             mp = new MediaPlayer();
             mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
 
             try {
 
@@ -263,6 +262,7 @@ public class MusicService extends Service{
     public void onStopClicked(){
 
         if(mp.isPlaying() || paused) {
+            //mp.release();
             mp.stop();
             dissappearNoti();
             paused = false;
@@ -285,6 +285,7 @@ public class MusicService extends Service{
             paused = false;
             onPlayClicked();
         }
+
     }
 
 
@@ -301,8 +302,10 @@ public class MusicService extends Service{
             mp.stop();
             paused = false;
             onPlayClicked();
-
+            
         }
+
+
 
 
 
@@ -316,7 +319,6 @@ public class MusicService extends Service{
         dissappearNoti();
 
         mp.stop();
-        mp.release();
 
 
 

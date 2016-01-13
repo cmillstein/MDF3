@@ -1,32 +1,16 @@
 package com.example.caseymillstein.c_millstein_fundamentalsmdf3;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public class MainActivity extends AppCompatActivity  implements MainFrag.onButtonClickListener, ServiceConnection{
 
@@ -42,6 +26,7 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
 
 
 
+    Boolean loop = false;
     private SeekBar seekBar;
     Button play;
     Button stopButton;
@@ -72,17 +57,12 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
 
 
 
-        //ORIENTATION
-        int currentOrientation = getResources().getConfiguration().orientation;
-        if(currentOrientation == Configuration.ORIENTATION_PORTRAIT){
-
-        }else{
-        }
-
 
 
 
     }
+
+
 
 
 
@@ -195,15 +175,16 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
 
     }
 
-
     @Override
-    public void loop(){
-        if(bound){
+    public void loopSong(boolean looper) {
 
-            myService.onLoopClicked();
+        if(bound) {
 
+            myService.isSongLooping(looper);
         }
+
     }
+
 
     @Override
     protected void onDestroy() {
