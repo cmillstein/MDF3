@@ -12,8 +12,8 @@ public class LandFrag extends Fragment {
 
     public static final String TAG = "LandFrag.TAG";
 
-    public static MainFrag newInstance(){
-        return new MainFrag();
+    public static LandFrag newInstance(){
+        return new LandFrag();
     }
 
 

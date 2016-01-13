@@ -17,6 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +28,12 @@ import java.util.logging.Handler;
 /**
  * Created by caseymillstein on 1/4/16.
  */
-public class MusicService extends Service {
+public class MusicService extends Service{
 
     int i = 0;
     MediaPlayer mp;
     int whenPause;
+    SeekBar seekBar;
 
     ArrayList<AllSongs> playSongs = new ArrayList<>();
 
@@ -41,7 +43,6 @@ public class MusicService extends Service {
     public static final int EXPANDED_NOTIFCATION = 0x1002;
     private static final int REQUEST_NOTIFY_LAUNCH = 0x02001;
 
-    //Seek Bar
 
 
 
@@ -49,6 +50,10 @@ public class MusicService extends Service {
     private final IBinder mBinder = new BoundServiceBinder();
     Boolean paused = false;
     Boolean isLoopedPressed = false;
+
+
+
+
 
 
     public class BoundServiceBinder extends Binder{
@@ -99,7 +104,7 @@ public class MusicService extends Service {
 
     //MAKING THE NOTIFACTION DISSAPPEAR WHEN USER CLICKS STOP BUTTON
     private void dissappearNoti(){
-        //manager.cancel(EXPANDED_NOTIFCATION);
+        manager.cancel(EXPANDED_NOTIFCATION);
     }
 
 
@@ -113,13 +118,13 @@ public class MusicService extends Service {
 
         //ARRAY OF SONGS AND ADDING THEM TO MY ARRAY LIST
 
-        AllSongs quick = new AllSongs("Quick", "android.resource://" + getPackageName() +"/raw/quick");
-        AllSongs bounce = new AllSongs("Bounce", "android.resource://" + getPackageName() + "/raw/bounce");
-        AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive");
-        AllSongs imGone = new AllSongs("I'm Gone", "android.resource://" + getPackageName() + "/raw/im_gone");
+        //AllSongs quick = new AllSongs("Quick", "android.resource://" + getPackageName() +"/raw/quick", "Quick");
+        AllSongs neverBeen = new AllSongs("Never Been", "android.resource://" + getPackageName() + "/raw/never_been", "The Incredible True Story");
+        AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive", "Under Pressure (Deluxe Edition)");
+        AllSongs imGone = new AllSongs("I'm Gone", "android.resource://" + getPackageName() + "/raw/im_gone", "Logic - Self Titled");
 
-        playSongs.add(quick);
-        playSongs.add(bounce);
+        //playSongs.add(quick);
+        playSongs.add(neverBeen);
         playSongs.add(buriedAlive);
         playSongs.add(imGone);
 
@@ -131,9 +136,10 @@ public class MusicService extends Service {
 
     //LOOP
     public void onLoopClicked(){
-
+        mp.setLooping(true);
 
     }
+
 
 
 
@@ -145,6 +151,10 @@ public class MusicService extends Service {
         //ALSO PREPARING ASYNC HERE
 
             if (mp != null && mp.isPlaying()) {
+
+
+
+
 
                 return;
 
@@ -191,44 +201,47 @@ public class MusicService extends Service {
                 public void onCompletion(MediaPlayer mp) {
 
 
-                        mp.stop();
-                        mp.reset();
-                        if (i == playSongs.size() - 1) {
+                    mp.stop();
+                    mp.reset();
+                    if (i == playSongs.size() - 1) {
 
-                            i = 0;
+                        i = 0;
 
-                        } else {
+                    } else {
 
-                            i = i + 1;
-
-                        }
-                        try {
-
-                            mp.setDataSource(getBaseContext(), Uri.parse(String.valueOf(playSongs.get(i).getmTitle())));
-
-                        } catch (IOException e) {
-
-                            e.printStackTrace();
-                        }
-
-                        try {
-
-                            mp.prepare();
-
-                        } catch (IOException e) {
-
-                            e.printStackTrace();
-
-                        }
-
-                        MainFrag.songName(playSongs.get(i).getmSong());
+                        i = i + 1;
 
                     }
+                    try {
+
+                        mp.setDataSource(getBaseContext(), Uri.parse(String.valueOf(playSongs.get(i).getmTitle())));
+
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+
+                    try {
+
+                        mp.prepare();
+
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+
+                    }
+
+                    MainFrag.songName(playSongs.get(i).getmSong());
+                    MainFrag.albumName(playSongs.get(i).getmAlbum());
+
+
+                }
 
 
             });
 
             MainFrag.songName(playSongs.get(i).getmSong());
+            MainFrag.albumName(playSongs.get(i).getmAlbum());
 
         }
 
@@ -300,8 +313,9 @@ public class MusicService extends Service {
 
         //Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
 
-        //dissappearNoti();
+        dissappearNoti();
 
+        mp.stop();
         mp.release();
 
 

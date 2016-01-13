@@ -19,18 +19,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class MainActivity extends AppCompatActivity  implements MainFrag.onButtonClickListener, ServiceConnection{
 
 
 
+    int i = 0;
 
     MusicService myService;
     boolean bound = false;
     MusicService.BoundServiceBinder mBinder;
+    MediaPlayer mp = new MediaPlayer();
+
+
+
+
+    private SeekBar seekBar;
+    Button play;
+    Button stopButton;
+    TextView endSong;
+    TextView beginSong;
 
 
 
@@ -46,17 +62,32 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
         setContentView(R.layout.activity_main);
 
 
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        play = (Button) findViewById(R.id.playButton);
+        stopButton = (Button) findViewById(R.id.stop);
+        beginSong = (TextView) findViewById(R.id.beginSong);
+        endSong = (TextView) findViewById(R.id.endSong);
+
+
+
 
 
         //ORIENTATION
         int currentOrientation = getResources().getConfiguration().orientation;
+        if(currentOrientation == Configuration.ORIENTATION_PORTRAIT){
 
-
+        }else{
+        }
 
 
 
 
     }
+
+
+
+
+
 
     @Override
     protected void onStart(){
@@ -108,6 +139,8 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
         if(bound) {
 
             myService.onPlayClicked();
+
+
 
         }
 
@@ -180,7 +213,6 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
         stopService(intent);
 
     }
-
 
 
 }

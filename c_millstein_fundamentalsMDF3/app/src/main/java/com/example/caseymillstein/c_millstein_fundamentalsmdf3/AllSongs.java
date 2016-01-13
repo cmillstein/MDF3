@@ -10,14 +10,16 @@ public class AllSongs {
 
     private String mSong;
     private String mTitle;
+    private String mAlbum;
 
 
 
 
 
-    public AllSongs(String _song, String _title){
+    public AllSongs(String _song, String _title, String _album){
         mSong = _song;
         mTitle = _title;
+        mAlbum = _album;
 
 
 
@@ -34,6 +36,9 @@ public class AllSongs {
         return mTitle;
     }
 
+    public String getmAlbum(){
+        return mAlbum;
+    }
 
 
 
