@@ -45,7 +45,7 @@ public class MainFrag extends Fragment{
     static TextView album;
     TextView beginSong;
     TextView endSong;
-    SeekBar seekBar;
+    static SeekBar seekBar;
     static TextView songTitle;
     static ImageView albumArt;
     private onButtonClickListener listener;
@@ -203,6 +203,10 @@ public class MainFrag extends Fragment{
         albumArt.setImageResource(resID);
     }
 
+    public static void seekBarUpdate(int duration, int position){
+        seekBar.setMax(duration);
+        seekBar.setProgress(position);
+    }
 
 
 }

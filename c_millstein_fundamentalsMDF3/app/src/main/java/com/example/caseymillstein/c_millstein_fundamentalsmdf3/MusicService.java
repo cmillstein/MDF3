@@ -35,6 +35,7 @@ public class MusicService extends Service{
     MediaPlayer mp;
     int whenPause;
     SeekBar seekBar;
+    private MainFrag mainFrag;
 
     ArrayList<AllSongs> playSongs = new ArrayList<>();
 
@@ -112,6 +113,7 @@ public class MusicService extends Service{
 
     public void isSongLooping(boolean looper){
         loop = looper;
+        mp.setLooping(looper);
     }
 
 
@@ -121,14 +123,15 @@ public class MusicService extends Service{
 
 
 
+
         //ARRAY OF SONGS AND ADDING THEM TO MY ARRAY LIST
 
-        //AllSongs quick = new AllSongs("Quick", "android.resource://" + getPackageName() +"/raw/quick", "Quick");
+        AllSongs quick = new AllSongs("Quick", "android.resource://" + getPackageName() +"/raw/quick", "Quick", R.drawable.logc2);
         AllSongs neverBeen = new AllSongs("Never Been", "android.resource://" + getPackageName() + "/raw/never_been", "The Incredible True Story", R.drawable.logc2);
         AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive", "Under Pressure (Deluxe Edition)", R.drawable.logic);
         AllSongs imGone = new AllSongs("I'm Gone", "android.resource://" + getPackageName() + "/raw/im_gone", "5AM", R.drawable.five_am);
 
-        //playSongs.add(quick);
+        playSongs.add(quick);
         playSongs.add(neverBeen);
         playSongs.add(buriedAlive);
         playSongs.add(imGone);
@@ -139,6 +142,23 @@ public class MusicService extends Service{
 
 
     }
+
+
+
+    Runnable runSeek = new Runnable() {
+        @Override
+        public void run() {
+            while (mp != null && mp.isPlaying()){
+                try{
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                MainFrag.seekBarUpdate(mp.getDuration(), mp.getCurrentPosition());
+                System.out.println("Doesn't work");
+            }
+        }
+    };
 
 
 
@@ -153,7 +173,8 @@ public class MusicService extends Service{
 
             if (mp != null && mp.isPlaying()) {
 
-                //mp.release();
+
+
 
 
                 return;
@@ -162,6 +183,7 @@ public class MusicService extends Service{
 
             if (mp != null && paused) {
 
+                new Thread(runSeek).start();
                 paused = false;
                 mp.start();
                 mp.seekTo(whenPause);
@@ -174,6 +196,7 @@ public class MusicService extends Service{
 
             mp = new MediaPlayer();
             mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
 
 
             try {
@@ -232,6 +255,7 @@ public class MusicService extends Service{
 
                     }
 
+
                     MainFrag.songName(playSongs.get(i).getmSong());
                     MainFrag.albumName(playSongs.get(i).getmAlbum());
                     MainFrag.albumArt(playSongs.get(i).getmAlbumArt());
@@ -280,12 +304,19 @@ public class MusicService extends Service{
 
     //PREVIOUS SONG LOGIC
     public void onPreviousClicked(){
-        if(mp != null && mp.isPlaying()){
-            if(i==0){
-                i=playSongs.size()-1;
-            }else {
-                i=i-1;
+        if (loop == false) {
+            if(mp != null && mp.isPlaying()){
+                if(i==0){
+                    i=playSongs.size()-1;
+                }else {
+                    i=i-1;
+                }
+                mp.stop();
+                paused = false;
+                onPlayClicked();
             }
+        } else {
+
             mp.stop();
             paused = false;
             onPlayClicked();
@@ -297,20 +328,26 @@ public class MusicService extends Service{
     //NEXT SONG LOGIC
     public void onNextClicked(){
 
-        if(mp != null && mp.isPlaying()){
-            if(i==playSongs.size()-1){
-                i=0;
-            }else{
-                i ++;
-            }
+        if (loop == false) {
+            if(mp != null && mp.isPlaying()){
+                if(i==playSongs.size()-1){
+                    i=0;
+                }else{
+                    i ++;
+                }
 
+                mp.stop();
+                paused = false;
+                onPlayClicked();
+
+            }
+        } else {
             mp.stop();
             paused = false;
             onPlayClicked();
 
+
         }
-
-
 
 
     }
