@@ -106,9 +106,9 @@ public class MusicService extends Service{
     }
 
     //MAKING THE NOTIFACTION DISSAPPEAR WHEN USER CLICKS STOP BUTTON
-//    private void dissappearNoti(){
-//        manager.cancel(STANDARD_NOTIFICATION);
-//    }
+    private void dissappearNoti(){
+        manager.cancel(STANDARD_NOTIFICATION);
+    }
 
 
     public void isSongLooping(boolean looper){
@@ -126,12 +126,12 @@ public class MusicService extends Service{
 
         //ARRAY OF SONGS AND ADDING THEM TO MY ARRAY LIST
 
-        AllSongs quick = new AllSongs("Quick", "android.resource://" + getPackageName() +"/raw/quick", "Quick", R.drawable.logc2);
+        //AllSongs quick = new AllSongs("Quick", "android.resource://" + getPackageName() +"/raw/quick", "Quick", R.drawable.logc2);
         AllSongs neverBeen = new AllSongs("Never Been", "android.resource://" + getPackageName() + "/raw/never_been", "The Incredible True Story", R.drawable.logc2);
         AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive", "Under Pressure (Deluxe Edition)", R.drawable.logic);
         AllSongs imGone = new AllSongs("I'm Gone", "android.resource://" + getPackageName() + "/raw/im_gone", "5AM", R.drawable.five_am);
 
-        playSongs.add(quick);
+        //playSongs.add(quick);
         playSongs.add(neverBeen);
         playSongs.add(buriedAlive);
         playSongs.add(imGone);
@@ -227,15 +227,23 @@ public class MusicService extends Service{
 
                     mp.stop();
                     mp.reset();
-                    if (i == playSongs.size() - 1) {
 
-                        i = 0;
 
+                    if (loop == false) {
+                        if (i == playSongs.size() - 1) {
+
+                            i = 0;
+
+                        } else {
+
+                            i = i + 1;
+
+                        }
                     } else {
 
-                        i = i + 1;
-
                     }
+
+
                     try {
 
                         mp.setDataSource(getBaseContext(), Uri.parse(String.valueOf(playSongs.get(i).getmTitle())));
@@ -293,7 +301,7 @@ public class MusicService extends Service{
             //mp.release();
             mp.stop();
 
-            //dissappearNoti();
+            dissappearNoti();
             paused = false;
         }else if  (mp == null || !mp.isPlaying()){
             return;
