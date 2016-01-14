@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -63,9 +64,7 @@ public class MusicService extends Service{
     }
 
 
-    public void isSongLooping(boolean looper){
-        loop = looper;
-    }
+
 
 
 
@@ -89,14 +88,14 @@ public class MusicService extends Service{
         build = new NotificationCompat.Builder(getBaseContext());
         Intent intent = new Intent(MusicService.this, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(MusicService.this, REQUEST_NOTIFY_LAUNCH, intent, 0);
-        build.setAutoCancel(false);
+        build.setAutoCancel(true);
         build.setOngoing(true);
         build.setContentIntent(pIntent);
         build.setSmallIcon(R.drawable.note);
-        build.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.note));
+        build.setLargeIcon(BitmapFactory.decodeResource(getResources(), playSongs.get(i).getmAlbumArt()));
         build.setContentTitle(playSongs.get(i).getmAlbum());
         build.setContentText(playSongs.get(i).getmSong());
-        manager.notify(EXPANDED_NOTIFCATION, build.build());
+        manager.notify(STANDARD_NOTIFICATION, build.build());
 
 
 
@@ -106,11 +105,14 @@ public class MusicService extends Service{
     }
 
     //MAKING THE NOTIFACTION DISSAPPEAR WHEN USER CLICKS STOP BUTTON
-    private void dissappearNoti(){
-        manager.cancel(EXPANDED_NOTIFCATION);
+//    private void dissappearNoti(){
+//        manager.cancel(STANDARD_NOTIFICATION);
+//    }
+
+
+    public void isSongLooping(boolean looper){
+        loop = looper;
     }
-
-
 
 
     @Override
@@ -122,9 +124,9 @@ public class MusicService extends Service{
         //ARRAY OF SONGS AND ADDING THEM TO MY ARRAY LIST
 
         //AllSongs quick = new AllSongs("Quick", "android.resource://" + getPackageName() +"/raw/quick", "Quick");
-        AllSongs neverBeen = new AllSongs("Never Been", "android.resource://" + getPackageName() + "/raw/never_been", "The Incredible True Story");
-        AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive", "Under Pressure (Deluxe Edition)");
-        AllSongs imGone = new AllSongs("I'm Gone", "android.resource://" + getPackageName() + "/raw/im_gone", "Logic - Self Titled");
+        AllSongs neverBeen = new AllSongs("Never Been", "android.resource://" + getPackageName() + "/raw/never_been", "The Incredible True Story", R.drawable.logc2);
+        AllSongs buriedAlive = new AllSongs("Buried Alive", "android.resource://" + getPackageName() + "/raw/buried_alive", "Under Pressure (Deluxe Edition)", R.drawable.logic);
+        AllSongs imGone = new AllSongs("I'm Gone", "android.resource://" + getPackageName() + "/raw/im_gone", "5AM", R.drawable.five_am);
 
         //playSongs.add(quick);
         playSongs.add(neverBeen);
@@ -151,7 +153,7 @@ public class MusicService extends Service{
 
             if (mp != null && mp.isPlaying()) {
 
-                mp.release();
+                //mp.release();
 
 
                 return;
@@ -232,6 +234,7 @@ public class MusicService extends Service{
 
                     MainFrag.songName(playSongs.get(i).getmSong());
                     MainFrag.albumName(playSongs.get(i).getmAlbum());
+                    MainFrag.albumArt(playSongs.get(i).getmAlbumArt());
 
 
                 }
@@ -241,6 +244,7 @@ public class MusicService extends Service{
 
             MainFrag.songName(playSongs.get(i).getmSong());
             MainFrag.albumName(playSongs.get(i).getmAlbum());
+            MainFrag.albumArt(playSongs.get(i).getmAlbumArt());
 
         }
 
@@ -264,7 +268,8 @@ public class MusicService extends Service{
         if(mp.isPlaying() || paused) {
             //mp.release();
             mp.stop();
-            dissappearNoti();
+
+            //dissappearNoti();
             paused = false;
         }else if  (mp == null || !mp.isPlaying()){
             return;
@@ -302,9 +307,8 @@ public class MusicService extends Service{
             mp.stop();
             paused = false;
             onPlayClicked();
-            
-        }
 
+        }
 
 
 
@@ -316,9 +320,9 @@ public class MusicService extends Service{
 
         //Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
 
-        dissappearNoti();
+        //dissappearNoti();
 
-        mp.stop();
+        //mp.stop();
 
 
 

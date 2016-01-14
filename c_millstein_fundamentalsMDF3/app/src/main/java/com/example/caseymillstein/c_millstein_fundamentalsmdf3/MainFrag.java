@@ -52,13 +52,7 @@ public class MainFrag extends Fragment{
 
 
 
-    Button play2;
-    Button pause2;
-    Button skipBackward2;
-    Button skipForward2;
-    Button stop2;
-    TextView beginSong2;
-    TextView endSong2;
+
 
 
     public interface onButtonClickListener{
@@ -97,19 +91,11 @@ public class MainFrag extends Fragment{
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         endSong = (TextView) view.findViewById(R.id.endSong);
         beginSong = (TextView) view.findViewById(R.id.beginSong);
-        //albumArt = (ImageView) view.findViewById(R.id.imageView);
+        albumArt = (ImageView) view.findViewById(R.id.imageView);
 
 
 
-
-        play2 = (Button) view.findViewById(R.id.play2);
-        pause2 = (Button) view.findViewById(R.id.pause2);
-        skipBackward2 = (Button) view.findViewById(R.id.skipBackward2);
-        skipForward2 = (Button) view.findViewById(R.id.skipBackward2);
-        stop2 = (Button) view.findViewById(R.id.stop2);
-        beginSong2 = (TextView) view.findViewById(R.id.begin2);
-        endSong2 = (TextView) view.findViewById(R.id.end2);
-
+        albumArt.setImageResource(R.drawable.logc2);
 
 
 
@@ -122,9 +108,9 @@ public class MainFrag extends Fragment{
         loopButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     listener.loopSong(true);
-                }else{
+                } else {
                     listener.loopSong(false);
                 }
             }
@@ -137,7 +123,11 @@ public class MainFrag extends Fragment{
 
 
 
+
+
         listener = (onButtonClickListener) getActivity();
+
+
         playButton.setOnClickListener(new View.OnClickListener(){
 
 
@@ -207,6 +197,12 @@ public class MainFrag extends Fragment{
     public static void albumName(String string){
         album.setText(string);
     }
+
+    public static void albumArt(int resID){
+        //albumArt.setImageDrawable(Drawable.createFromPath(string));
+        albumArt.setImageResource(resID);
+    }
+
 
 
 }

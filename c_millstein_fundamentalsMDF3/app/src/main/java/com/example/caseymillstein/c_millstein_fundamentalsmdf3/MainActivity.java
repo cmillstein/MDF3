@@ -1,9 +1,12 @@
 package com.example.caseymillstein.c_millstein_fundamentalsmdf3;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
@@ -52,9 +55,6 @@ public class MainActivity extends AppCompatActivity  implements MainFrag.onButto
         stopButton = (Button) findViewById(R.id.stop);
         beginSong = (TextView) findViewById(R.id.beginSong);
         endSong = (TextView) findViewById(R.id.endSong);
-
-
-
 
 
 

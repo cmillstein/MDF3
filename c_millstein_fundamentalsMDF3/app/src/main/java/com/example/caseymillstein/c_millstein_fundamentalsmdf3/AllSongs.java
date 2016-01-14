@@ -11,15 +11,17 @@ public class AllSongs {
     private String mSong;
     private String mTitle;
     private String mAlbum;
+    private int mAlbumArt;
 
 
 
 
 
-    public AllSongs(String _song, String _title, String _album){
+    public AllSongs(String _song, String _title, String _album, int _albumArt){
         mSong = _song;
         mTitle = _title;
         mAlbum = _album;
+        mAlbumArt = _albumArt;
 
 
 
@@ -39,6 +41,11 @@ public class AllSongs {
     public String getmAlbum(){
         return mAlbum;
     }
+
+    public int getmAlbumArt(){
+        return mAlbumArt;
+    }
+
 
 
 
