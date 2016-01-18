@@ -48,8 +48,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/carYearText"
-        android:layout_above="@+id/carModelHolder"
-        android:layout_alignEnd="@+id/deleteCar" />
+        android:layout_alignBottom="@+id/carYearHolder"
+        android:layout_alignStart="@+id/carModelText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,12 +61,22 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Car"
+        android:layout_width="55dp"
+        android:layout_height="60dp"
         android:id="@+id/deleteCar"
+        android:background="@drawable/delete"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/carModelHolder" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=" Delete Car"
+        android:id="@+id/textView3"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/deleteCar"
+        android:layout_toEndOf="@+id/carYearHolder" />
 
 
 </RelativeLayout>

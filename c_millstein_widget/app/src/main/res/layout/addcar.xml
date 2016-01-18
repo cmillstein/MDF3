@@ -32,22 +32,42 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
         android:id="@+id/addCarButton"
+        android:background="@drawable/car_two"
         android:layout_marginTop="49dp"
-        android:layout_marginStart="58dp"
-        android:text="Add Car"
+        android:layout_marginStart="54dp"
         android:layout_below="@+id/carModel"
         android:layout_alignParentStart="true" />
 
     <Button
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:id="@+id/carListButton"
+        android:background="@drawable/list"
+        android:layout_marginEnd="74dp"
+        android:layout_alignBottom="@+id/addCarButton"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List Of Cars"
-        android:id="@+id/carListButton"
-        android:layout_marginEnd="42dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Add Car"
+        android:id="@+id/textView"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/addCarButton"
+        android:layout_alignEnd="@+id/addCarButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Show Car List"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/textView"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/addCarButton" />
+        android:layout_marginEnd="43dp" />
 
 </RelativeLayout>
