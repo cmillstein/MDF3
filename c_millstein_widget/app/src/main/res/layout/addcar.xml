@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/addScreenFragment">
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carName"
+        android:layout_marginTop="31dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carYear"
+        android:layout_below="@+id/carName"
+        android:layout_marginTop="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carModel"
+        android:layout_below="@+id/carYear"
+        android:layout_marginTop="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addCarButton"
+        android:layout_marginTop="49dp"
+        android:layout_marginStart="58dp"
+        android:text="Add Car"
+        android:layout_below="@+id/carModel"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List Of Cars"
+        android:id="@+id/carListButton"
+        android:layout_marginEnd="42dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/addCarButton" />
+
+</RelativeLayout>
