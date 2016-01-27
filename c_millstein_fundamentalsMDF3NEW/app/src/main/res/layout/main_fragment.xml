@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--PLAY BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/playButton"
+        android:background="@drawable/play"
+        android:layout_marginBottom="59dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/skip_backward"
+        android:layout_marginStart="39dp" />
+
+
+    <!--PAUSE BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/pauseButton"
+        android:background="@drawable/pause"
+        android:layout_alignTop="@+id/playButton"
+        android:layout_centerHorizontal="true" />
+
+
+    <!--FAST FORWARD BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/skip_forward"
+        android:background="@drawable/skip_right"
+        android:layout_marginEnd="36dp"
+        android:layout_alignBottom="@+id/pauseButton"
+        android:layout_toStartOf="@+id/stop" />
+
+    <!--REWIND BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/skip_backward"
+        android:background="@drawable/skip_left"
+        android:layout_alignTop="@+id/playButton"
+        android:layout_alignStart="@+id/albumName" />
+
+
+    <!--STOP BUTTON-->
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/stop"
+        android:background="@drawable/stop"
+        android:layout_alignBottom="@+id/skip_forward"
+        android:layout_alignEnd="@+id/albumName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/albumName"
+        android:gravity="center"
+        android:layout_above="@+id/seekBar"
+        android:layout_marginBottom="49dp"
+        android:layout_alignParentEnd="true"
+        android:text="The Incredible True Story"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/songName"
+        android:gravity="center"
+        android:text="Never Been"
+        android:layout_alignTop="@+id/albumName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+
+        android:layout_above="@+id/songName"
+        android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:layout_above="@+id/playButton"
+        android:layout_alignStart="@+id/playButton"
+        android:layout_alignEnd="@+id/skip_forward" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/beginSong"
+        android:layout_alignTop="@+id/seekBar"
+        android:layout_toStartOf="@+id/seekBar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/endSong"
+        android:layout_alignEnd="@+id/stop"
+        android:layout_alignTop="@+id/seekBar"
+        android:layout_alignStart="@+id/stop" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loop"
+        android:id="@+id/loopBox"
+        android:checked="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/beginSong" />
+
+
+</RelativeLayout>
