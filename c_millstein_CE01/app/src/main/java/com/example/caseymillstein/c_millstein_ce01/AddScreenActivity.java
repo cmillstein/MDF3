@@ -95,7 +95,9 @@ public class AddScreenActivity extends AppCompatActivity {
         intent.putExtra(ListActivity.EXTRA_LAST_NAME, newPersonInfo.getmLastName());
         intent.putExtra(ListActivity.EXTRA_AGE, newPersonInfo.getmAge());
         intent.setAction(ListActivity.ACTION_SAVE_DATA);
+
         sendBroadcast(intent);
+
 
 
 
