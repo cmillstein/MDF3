@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name: "
+        android:id="@+id/nameHolder"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Age: "
+        android:id="@+id/ageHolder"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/nameHolder"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="School: "
+        android:id="@+id/schoolHolder"
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/ageHolder"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/nameReal"
+        android:layout_alignBottom="@+id/nameHolder"
+        android:layout_toEndOf="@+id/nameHolder" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/ageReal"
+        android:layout_alignBottom="@+id/ageHolder"
+        android:layout_toEndOf="@+id/ageHolder" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/schoolReal"
+        android:layout_alignBottom="@+id/schoolHolder"
+        android:layout_toEndOf="@+id/schoolHolder" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete User"
+        android:id="@+id/deleteButton"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/ageReal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:id="@+id/shareButton"
+        android:layout_alignTop="@+id/deleteButton"
+        android:layout_toEndOf="@+id/schoolReal"
+        android:layout_marginStart="52dp" />
+</RelativeLayout>

@@ -44,7 +44,7 @@ public class MainFragment extends Fragment {
 
     public static final String TAG = "MainFrag.TAG";
 
-    public static MainFragment newInstance(){
+    public MainFragment newInstance(){
         return new MainFragment();
     }
 

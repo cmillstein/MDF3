@@ -126,11 +126,127 @@ public class MusicService extends Service {
     //PLAY CLICKED
     public void onPlayClicked(){
 
+        if (mp != null && mp.isPlaying()) {
+
+
+
+
+
+            return;
+
+        }
+
+        if (mp != null && paused) {
+
+            new Thread(runSeek).start();
+            paused = false;
+            mp.start();
+            mp.seekTo(whenPause);
+            return;
+
+        }
+
+
+
+
+        mp = new MediaPlayer();
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+
+
+        try {
+
+            mp.setDataSource(this, Uri.parse(String.valueOf(playSongs.get(i).getmTitle())));
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        mp.prepareAsync();
+
+        mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.start();
+                myNotification();
+
+            }
+
+        });
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+
+
+                mp.stop();
+                mp.reset();
+
+
+                if (loop == false) {
+                    if (i == playSongs.size() - 1) {
+
+                        i = 0;
+
+                    } else {
+
+                        i = i + 1;
+
+                    }
+                } else {
+
+                }
+
+
+                try {
+
+                    mp.setDataSource(getBaseContext(), Uri.parse(String.valueOf(playSongs.get(i).getmTitle())));
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+
+                try {
+
+                    mp.prepare();
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+
+
+                MainFragment.songName(playSongs.get(i).getmSong());
+                MainFragment.albumName(playSongs.get(i).getmAlbum());
+                MainFragment.albumArt(playSongs.get(i).getmAlbumArt());
+
+
+            }
+
+
+        });
+
+        MainFragment.songName(playSongs.get(i).getmSong());
+        MainFragment.albumName(playSongs.get(i).getmAlbum());
+        MainFragment.albumArt(playSongs.get(i).getmAlbumArt());
+
     }
 
 
     //PAUSE CLICKED
     public void onPauseClicked(){
+
+        if(mp == null || !mp.isPlaying()){
+            return;
+        }
+
+        mp.pause();
+
+        paused = true;
+        whenPause = mp.getCurrentPosition();
 
 
     }
@@ -138,16 +254,66 @@ public class MusicService extends Service {
     //STOP BUTTON CLICKED
     public void onStopClicked(){
 
+        if(mp.isPlaying() || paused) {
+            //mp.release();
+            mp.stop();
+
+            releaseNotification();
+            paused = false;
+        }else if  (mp == null || !mp.isPlaying()){
+            return;
+        }
+
     }
 
     //PREVIOUS BUTTON CLICKED(){
     public void onPreviousClicked(){
+
+        if (loop == false) {
+            if(mp != null && mp.isPlaying()){
+                if(i==0){
+                    i=playSongs.size()-1;
+                }else {
+                    i=i-1;
+                }
+                mp.stop();
+                paused = false;
+                onPlayClicked();
+            }
+        } else {
+
+            mp.stop();
+            paused = false;
+            onPlayClicked();
+        }
 
 
     }
 
     //NEXT BUTTON CLICKED
     public void onNextClicked(){
+
+
+        if (loop == false) {
+            if(mp != null && mp.isPlaying()){
+                if(i==playSongs.size()-1){
+                    i=0;
+                }else{
+                    i ++;
+                }
+
+                mp.stop();
+                paused = false;
+                onPlayClicked();
+
+            }
+        } else {
+            mp.stop();
+            paused = false;
+            onPlayClicked();
+
+
+        }
 
 
     }
