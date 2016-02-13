@@ -9,9 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +32,6 @@ public class ListActivity extends AppCompatActivity {
     public static final String TAG = "ListActivity.TAG";
 
 
-
     public static final String ACTION_SAVE_DATA = "com.fullsail.android.ACTION_SAVE_DATA";
     public static final String ACTION_DELETE_DATA = "com.fullsail.android.ACTION_DELETE_DATA";
     public static final String ACTION_UPDATE_LIST = "com.fullsail.android.ACTION_UPDATE_LIST";
@@ -40,8 +42,9 @@ public class ListActivity extends AppCompatActivity {
     public static final String EXTRA_AGE = "com.fullsail.android.EXTRA_AGE";
 
 
-    MyBroadcastReceiver mReceiver;
+    BroadcastReceiver mReceiver;
 
+    ArrayList<PersonInfo> personInfoList = new ArrayList<>();
 
 
     ListScreen listScreen;
@@ -55,12 +58,12 @@ public class ListActivity extends AppCompatActivity {
 
         listScreen = ListScreen.newInstance();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             getFragmentManager()
                     .beginTransaction()
                     .add(R.id.listContainer2, listScreen, ListScreen.TAG)
                     .commit();
-        }else{
+        } else {
 
             listScreen = (ListScreen) getFragmentManager()
                     .findFragmentByTag(ListScreen.TAG);
@@ -75,13 +78,8 @@ public class ListActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_main, menu);
@@ -93,7 +91,7 @@ public class ListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_add_to_list:
                 System.out.println("Clicked");
                 Intent intent = new Intent(this, AddScreenActivity.class);
@@ -132,41 +130,39 @@ public class ListActivity extends AppCompatActivity {
     }
 
 
-
-    public class MyBroadcastReceiver extends BroadcastReceiver{
-
+    public class MyBroadcastReceiver extends BroadcastReceiver {
 
 
-      @Override
-      public void onReceive(Context context, Intent intent) {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            if (intent.getAction().equals(ACTION_SAVE_DATA)) {
+                System.out.println("Recieved");
+                String firstName;
+                firstName = intent.getStringExtra(EXTRA_FIRST_NAME);
+                String lastName;
+                lastName = intent.getStringExtra(EXTRA_LAST_NAME);
+                String age;
+                age = intent.getStringExtra(EXTRA_AGE);
+                System.out.println(firstName + lastName + age);
+
+
+            }
+
+
+        }
 
 
 
 
 
-          if(intent.getAction().equals(ACTION_SAVE_DATA)){
-              System.out.println("Recieved");
-              String firstName;
-              firstName = intent.getStringExtra(EXTRA_FIRST_NAME);
-              String lastName;
-              lastName = intent.getStringExtra(EXTRA_LAST_NAME);
-              String age;
-              age = intent.getStringExtra(EXTRA_AGE);
-              System.out.println(firstName + lastName + age);
-
-
-          }
-
-
-      }
-
-
-  }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mReceiver);
-        
+
     }
 }

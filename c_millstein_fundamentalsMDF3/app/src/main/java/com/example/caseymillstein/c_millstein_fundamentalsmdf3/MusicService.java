@@ -168,8 +168,7 @@ public class MusicService extends Service{
     //NOTE: WHEN ONE SONG ENDS, IT GOES TO THE NEXT SONG AUTOMATICALLY.  ALL SONGS WILL LOOP (3 SONGS IN TOTAL)
     public void onPlayClicked() {
 
-        //IF MEDIAPLAYER ISN'T EQUAL TO NULL AND PLAYING--
-        //ALSO PREPARING ASYNC HERE
+
 
             if (mp != null && mp.isPlaying()) {
 
